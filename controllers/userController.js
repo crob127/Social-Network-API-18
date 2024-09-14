@@ -8,7 +8,10 @@ module.exports = {
     },
     getUserById(req,res) {
         User.findOne({ _id:req.params.id })
-            .then((user) => res.json(user))
+            .then((user) => 
+                !user
+                ? res.status(404).json({ message: "No user found with this ID" })
+                : res.json(thought))
             .catch((err) => res.status(500).json(err));
     },
     createUser(req,res) {
