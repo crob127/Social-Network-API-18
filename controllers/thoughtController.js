@@ -25,9 +25,11 @@ module.exports = {
             })
             .then((user) =>
                 !user
-                    ? res.status(404).json({ message: "Thought created but non user found with this ID"})
+                    ? res.status(404).json({ message: "Thought created but no user found with this ID"})
                     : res.json("Thought successfully created"))
-            .catch((err) => res.status(500).json(err));
+            .catch((err) => {
+                console.error(err);
+                res.status(500).json(err)});
     },
     updateThought(req,res) {
         Thought.findOneAndUpdate(
